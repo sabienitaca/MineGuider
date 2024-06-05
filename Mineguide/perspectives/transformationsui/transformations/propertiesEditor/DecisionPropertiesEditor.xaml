@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Mineguide.perspectives.transformationsui.transformations.propertiesEditor.DecisionPropertiesEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Mineguide.perspectives.transformationsui.transformations.propertiesEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="5" Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="tbText" Text="Properties" Grid.Row="0" Margin="5,10,5,5" Focusable="True"/>
+
+        <Grid Grid.Row="1" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="labelName" Text="Name:" Grid.Column="0" Margin="5"/>
+            <TextBox  x:Name="tbName" Text="" Grid.Column="1" Margin="0,5,5,5" MinWidth="100"/>
+        </Grid>
+
+        <TextBlock Text="Decision outputs:" Grid.Row="2" Margin="5,5,5,5"/>
+        <Border Margin="10,5,0,10" Grid.Row="3" BorderThickness="1" BorderBrush="LightGray">
+            <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="5">
+
+                <ItemsControl x:Name="container" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="FirstColumn"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="SecondColumn"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Content="{Binding Path=Name}" Tag="{Binding Path=Id}" 
+                                        IsChecked="{Binding Path=IsSelected}" Grid.Column="0" 
+                                        Margin="5" VerticalAlignment="Center" Visibility="{Binding Path=ShowSelectionControls, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                                <TextBlock  Text="{Binding Path=Name}" Grid.Column="1" Margin="5" VerticalAlignment="Center" 
+                                             Visibility="{Binding NotShowSelectionControls, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                                <TextBox Text="{Binding Path=Value}" Grid.Column="2" Margin="0,5,5,5" MinWidth="150" IsEnabled="{Binding Path=IsSelected}"/>
+                                <CheckBox Content="Default" Tag="{Binding Path=Id}" 
+                                      IsChecked="{Binding Path=IsDefault}" Grid.Column=" 3" 
+                                      Margin="0,5,5,5" Checked="CheckBox_Checked" VerticalAlignment="Center" IsEnabled="{Binding Path=IsSelected}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

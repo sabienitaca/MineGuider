@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	 <Version>0.0.13</Version>
+	 <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="perspectives\interactiveannotation\annotationFilters\AnnotationLogPreProcessing.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="pm4h.PMApp.complements" Version="3.10.24" />
+    <PackageReference Include="pm4h.PMApp.core" Version="3.10.24" />
+  </ItemGroup>
+
+</Project>
